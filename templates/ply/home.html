@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/ply/home.css">
+    <title>Welcome</title>
+</head>
+
+<body>
+    <div class="head">
+        <div>歡迎光臨，請註冊登入系統</div>
+    </div>
+    <div class="login">
+        <div class="loginTitle">註冊帳號</div>
+        <form action="/signup" method="post">
+            <div>姓名 <input type="text" name="name"/></div>
+            <div>帳號 <input type="text" name="username" /></div>
+            <div>密碼 <input type="text" name="password"/></div>
+            <div><button>註冊</button></div>
+        </form>
+    </div>
+    <hr />
+    <div class="login">
+        <div class="loginTitle">登入系統</div>
+        <form action="/signin" method="post">
+            <div>帳號 <input type="text" name="login_account" autocomplete="off"/></div>
+            <div>密碼 <input type="text" name="login_password" autocomplete="off"/></div>
+            <div><button>登入</button></div>
+        </form>
+
+    </div>
+
+
+    <script type="module">
+
+    addEventListener("beforeunload", (event) => {
+        let input = document.getElementsByTagName('input')
+        for (let i=0; i<input.length; i++){
+            input[i].value=''
+        }
+    });
+    
+
+
+    var foo = function(){
+        console.log(this,'^')
+    }
+    foo();
+
+
+    </script>
+</body>
+</html>

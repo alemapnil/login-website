@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My first web</title>
+</head>
+<body>
+    <H3>This is main page</H3>
+    <div><a href="/page" style="color: pink;"> change</a></div>
+    <br/>
+    <img src="/static/smile.jpg"/>
+    <hr/>
+    <form action="/show">
+        姓名 <input type="text" name="name"/>
+        <button>送出表單</button>
+    </form>
+    <hr/>
+    <form action="calculate", method="post">
+        數字 <input type="text" name="number"/>
+        <button>送出表單</button>
+    </form>
+</body>
+</html>

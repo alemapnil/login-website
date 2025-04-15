@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/ply/member.css"/>
+    <title>已登入</title>
+</head>
+<body>
+    <div class="head"><div>歡迎光臨，這是會員頁</div></div>
+    <div class="note">
+        <div><span>{{member}}</span>，歡迎登入系統</div>
+        <div><a href="/signout">登出系統</a></div>
+    
+        <br/>
+        <div class="title">查詢會員姓名</div>
+        <form id="search">
+            <div>
+                <input type="text" name="username" />
+                <button>查詢</button>
+            </div>
+        </form>
+        <div class="result1"></div>
+        <br/>
+        <div class="title">更新我的姓名</div>
+        <form id="update">
+            <div>
+                <input type="text" name="updatename" /><button>更新</button>
+            </div>
+        </form>
+        <div class="result2"></div>
+    </div>
+    <script type="module">
+        document.getElementById('search').addEventListener('submit',(e)=>{
+            e.preventDefault()
+            let username = document.getElementsByName('username')[0].value
+
+            fetch(`/api/members?username=${username}`).then(function(Response){
+                return Response.json()
+            }).catch(function(error){
+                if(error !==null){
+                    window.location.href='/'
+                }
+            }).then(function(data){
+                console.log(data)
+
+                if ('data' in data && !(data['data'])){
+                    document.getElementsByClassName('result1')[0].innerHTML = 'No result'
+                }
+                else{
+                    document.getElementsByClassName('result1')[0].innerHTML = data['data']['name']  
+                }
+            }
+            )
+            let input = document.getElementsByTagName('input')
+            for (let i=0; i<input.length; i++){
+                input[i].value=''
+            }
+        })
+
+
+        document.getElementById('update').addEventListener('submit',(e)=>{
+            e.preventDefault()
+            let updatename = document.getElementsByName('updatename')[0].value
+            let headers={"Content-Type": "application/json",
+                'X-CSRF-TOKEN': document.cookie.split('=')[1] 
+            }
+            let body =JSON.stringify({'name':`${updatename}`})
+
+
+            fetch('/api/member',{method:"post",headers:headers,body:body,credentials: 'same-origin'}).then(function(response){
+                console.log(response.status)
+                return response.json()
+            }).catch(function(error){
+                console.log(error)
+                window.location.href='/'
+            }).then(function(data){
+                console.log(data)
+                if('msg' in data){
+                    document.getElementsByClassName('result2')[0].innerHTML = data['msg']
+                }
+                else if (data['ok']){
+                    document.getElementsByClassName('result2')[0].innerHTML ='更新成功'
+                    document.getElementsByTagName('span')[0].innerHTML=`${updatename}`
+                }
+                else{
+                    console.log(data, '後端更新失敗')
+                }
+            })
+
+            let input = document.getElementsByTagName('input')
+            for (let i=0; i<input.length; i++){
+                input[i].value=''
+            }
+
+        })
+
+
+        console.log( document.getElementsByName('username')[0], document.getElementsByName('updatename')[0])
+        //去除上一筆更新訊息
+        document.getElementsByName('username')[0].addEventListener('change',()=>{
+            console.log(0)
+                document.getElementsByClassName('result1')[0].innerHTML =''
+                document.getElementsByClassName('result2')[0].innerHTML =''
+        })
+        document.getElementsByName('updatename')[0].addEventListener('change',()=>{
+            console.log(1)
+                document.getElementsByClassName('result1')[0].innerHTML =''
+                document.getElementsByClassName('result2')[0].innerHTML =''
+        })
+
+        addEventListener("beforeunload", (event) => {
+        let input = document.getElementsByTagName('input')
+        for (let i=0; i<input.length; i++){
+            input[i].value=''
+        }
+        });
+    </script>
+</body>
+</html>

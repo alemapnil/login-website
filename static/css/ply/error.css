@@ -1,0 +1,29 @@
+body{
+    /* background-color: brown; */
+    margin: 0;
+}
+.head{
+    height: 100px;
+    background-color: darkcyan;
+    display: flex;
+    justify-content: center;
+}
+.head div{
+    margin: auto;
+    font-size: xx-large;
+    font-weight: 800;
+    color: white;
+}
+
+.note{
+    /* background-color: pink; */
+    width: 300px;
+    height: 300px;
+    margin: 50px auto auto auto;
+}
+
+.note div{
+    text-align: center;
+    font-size: larger;
+    margin: 10px;
+}
