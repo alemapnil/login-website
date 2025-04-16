@@ -8,8 +8,8 @@ app = Flask(__name__)  # 建立Application 實例
 app.config["JSON_AS_ASCII"] = False
 app.secret_key = "I'm secert key"
 app.register_blueprint(app2)
-
 app.config["JWT_SECRET_KEY"] = "supersecret"
+
 jwt = JWTManager(app)
 
 

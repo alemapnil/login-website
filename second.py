@@ -47,8 +47,7 @@ def signin():
             abcToken = create_access_token(identity={"login_account": login_account})  # type is string
             resp = redirect("/member")
             set_access_cookies(resp, abcToken) #set JWT cookies
-            print(resp,'登入了',abcToken)
-            
+            print(resp,'JWT產生了，將轉址去/member >>',abcToken)
             return resp
 
 
